@@ -10,21 +10,21 @@ import {
 
 class CampsiteInfo extends Component {
     constructor(props) {
-    super(props);
-    this.state = {
-        selectedCampsite: null,
-    };
+        super(props);
+        this.state = {
+            selectedCampsite: null,
+        };
     }
 
     renderCampsite(campsite) {
         if (campsite) {
             return (
-                <div className="col-md-5 m-1">
+                <div className='col-md-5 m-1'>
                     <Card>
                         <CardImg top src={campsite.image} alt={campsite.name} />
                         <CardBody>
-                        <CardTitle>{campsite.name}</CardTitle>
-                        <CardText>{campsite.description}</CardText>
+                            <CardTitle>{campsite.name}</CardTitle>
+                            <CardText>{campsite.description}</CardText>
                         </CardBody>
                     </Card>
                 </div>
@@ -36,13 +36,19 @@ class CampsiteInfo extends Component {
     renderComments(comments) {
         if (comments) {
             return (
-                <div className="col-md-5 m-1">
+                <div className='col-md-5 m-1'>
                     <h4>Comments</h4>
-                    {comments.map(comment => 
-                    <div key={comment.id}> 
-                    {comment.text} <br />
-                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-                    </div>)}
+                    {comments.map((comment) => (
+                        <div key={comment.id}>
+                            {comment.text} <br />
+                            -- {comment.author},{" "}
+                            {new Intl.DateTimeFormat("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "2-digit",
+                            }).format(new Date(Date.parse(comment.date)))}
+                        </div>
+                    ))}
                 </div>
             );
         }
@@ -51,12 +57,14 @@ class CampsiteInfo extends Component {
 
     render() {
         if (this.props.campsite) {
-            return (<div className="row">
-                {this.renderCampsite(this.props.campsite)} 
-                {this.renderComments(this.props.campsite.comments)}
-            </div>);
+            return (
+                <div className='row'>
+                    {this.renderCampsite(this.props.campsite)}
+                    {this.renderComments(this.props.campsite.comments)}
+                </div>
+            );
         } else {
-            return (<div></div>);
+            return <div></div>;
         }
     }
 }

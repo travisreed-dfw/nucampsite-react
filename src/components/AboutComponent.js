@@ -17,10 +17,10 @@ function RenderPartner({ partner }) {
                     src={partner.image}
                     alt={partner.name}
                     width='150'
-                    Object={true}
+                    object
                 />
-                <Media className='ml-5 mb-4'>
-                    <Media heading={true}>{partner.name}</Media>
+                <Media body className='ml-5 mb-4'>
+                    <Media heading>{partner.name}</Media>
                     {partner.description}
                 </Media>
             </React.Fragment>

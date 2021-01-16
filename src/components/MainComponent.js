@@ -26,8 +26,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-const mapDispatchToProps = {
-    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+    postComment: (campsiteId, rating, author, text) =>
+        postComment(campsiteId, rating, author, text),
     fetchCampsites: () => fetchCampsites(),
     resetFeedbackForm: () => actions.reset("feedbackForm"),
     fetchComments: () => fetchComments(),
@@ -70,11 +70,19 @@ class Main extends Component {
 
         const CampsiteWithId = ({ match }) => {
             return (
-                <CampsiteInfo 
-                    campsite={this.props.campsites.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+                <CampsiteInfo
+                    campsite={
+                        this.props.campsites.campsites.filter(
+                            (campsite) =>
+                                campsite.id === +match.params.campsiteId
+                        )[0]
+                    }
                     isLoading={this.props.campsites.isLoading}
                     errMess={this.props.campsites.errMess}
-                    comments={this.props.comments.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+                    comments={this.props.comments.comments.filter(
+                        (comment) =>
+                            comment.campsiteId === +match.params.campsiteId
+                    )}
                     commentsErrMess={this.props.comments.errMess}
                     postComment={this.props.postComment}
                 />

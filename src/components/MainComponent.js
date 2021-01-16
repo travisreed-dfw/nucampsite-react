@@ -13,6 +13,8 @@ import {
     fetchCampsites,
     fetchComments,
     fetchPromotions,
+    fetchPartners,
+    postFeedback,
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -33,6 +35,25 @@ const mapDispatchToProps = {
     resetFeedbackForm: () => actions.reset("feedbackForm"),
     fetchComments: () => fetchComments(),
     fetchPromotions: () => fetchPromotions(),
+    fetchPartners: () => fetchPartners(),
+    postFeedback: (
+        firstName,
+        lastName,
+        phoneNum,
+        email,
+        agree,
+        contactType,
+        feedback
+    ) =>
+        postFeedback(
+            firstName,
+            lastName,
+            phoneNum,
+            email,
+            agree,
+            contactType,
+            feedback
+        ),
 };
 
 class Main extends Component {
@@ -40,6 +61,7 @@ class Main extends Component {
         this.props.fetchCampsites();
         this.props.fetchComments();
         this.props.fetchPromotions();
+        this.props.fetchPartners();
     }
 
     render() {
@@ -53,6 +75,13 @@ class Main extends Component {
                     }
                     campsitesLoading={this.props.campsites.isLoading}
                     campsitesErrMess={this.props.campsites.errMess}
+                    partner={
+                        this.props.partners.partners.filter(
+                            (partner) => partner.featured
+                        )[0]
+                    }
+                    partnersLoading={this.props.partners.isLoading}
+                    partnersErrMess={this.props.partners.errMess}
                     promotion={
                         this.props.promotions.promotions.filter(
                             (promotion) => promotion.featured
@@ -60,11 +89,6 @@ class Main extends Component {
                     }
                     promotionLoading={this.props.promotions.isLoading}
                     promotionErrMess={this.props.promotions.errMess}
-                    partner={
-                        this.props.partners.filter(
-                            (partner) => partner.featured
-                        )[0]
-                    }
                 />
             );
         };
@@ -118,6 +142,7 @@ class Main extends Component {
                                 path='/contactus'
                                 render={() => (
                                     <Contact
+                                        postFeedback={this.props.postFeedback}
                                         resetFeedbackForm={
                                             this.props.resetFeedbackForm
                                         }
